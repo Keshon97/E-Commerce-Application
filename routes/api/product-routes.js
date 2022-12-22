@@ -38,10 +38,18 @@ router.get('/:id', (req, res) => {
       },
     ],
   }
-  )
-    .then((product) => 
-      res.json(product))
+)
+  .then(product => {
+    if(!product) {
+      res.status(404).json({message: 'No product with that id'})
+      return;
+    }
+    res.status(200).json(product)
+  })
+    // .then((product) => 
+    //   res.json(product))
     .catch((err) => {
+      console.log(err);
       res.status(400).json(err);
     });
 });
