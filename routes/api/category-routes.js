@@ -6,13 +6,11 @@ const { Category, Product } = require('../../models');
 router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
-  Category.findAll(
-    {
-      include: [
-        Product
-      ],
-    }
-  )
+  Category.findAll({
+    include: [
+      Product
+    ],
+  })
     .then((category) => 
       res.json(category))
     .catch((err) => 
@@ -30,7 +28,7 @@ router.get('/:id', (req, res) => {
       res.status(404).json({message: 'No category with that id.'})
       return;
     }
-    res.status(200).json(category);;
+    res.status(200).json(category);
   })
   .catch((err) => 
     res.status(400).json(err));
@@ -74,13 +72,11 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
-  Category.destroy(
-    {
+  Category.destroy({
       where: {
         id: req.params.id,
       }
-    }
-  )
+    })
   .then(category => {
     if(!category) {
       res.status(404).json({message: 'No category with that id.'})
